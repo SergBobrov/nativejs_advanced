@@ -1,34 +1,53 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { IGlobalState } from '../../redux/state';
 import { CurrencyState } from '../../redux/currencyReducer';
-import { compose} from 'redux';
 import {
+  useDispatch,
   ChangeActionAC,
   ChangeCurrencyFieldAC,
   changeCurrentCurrencyAC,
 } from '../../redux/actions';
-
-
 import CurrencyExchange from '../../components/CurrencyExchange/CurrencyExchange';
+import { useSelector } from 'react-redux';
+import {} from '../../redux/selectors';
+import { IGlobalState } from '../../redux/state';
 
 interface ICurrencyProps extends CurrencyState {
-  ChangeCurrencyFieldAC: (amountOfBYN: string, amountOfCurrency: string) => void;
-  ChangeActionAC: (isBuying: boolean) => void;
-  changeCurrentCurrencyAC: (currency: string) => void;
+
+  // ChangeCurrencyFieldAC: (amountOfBYN: string, amountOfCurrency: string) => void;
+  // ChangeActionAC: (isBuying: boolean) => void;
+  // changeCurrentCurrencyAC: (currency: string) => void;
+
 }
 
+// : React.FunctionComponent<ICurrencyProps>
 
-export const CurrencyEContainer: React.FunctionComponent<ICurrencyProps> = ({
-                                                                              currencies,
-                                                                              currentCurrency,
-                                                                              isBuying,
-                                                                              amountOfBYN,
-                                                                              amountOfCurrency,
-                                                                              ChangeCurrencyFieldAC,
-                                                                              ChangeActionAC,
-                                                                              changeCurrentCurrencyAC,
-                                                                            }) => {
+export const CurrencyEContainer = (
+  // {                                                                           currencies,
+  //                                                                             currentCurrency,
+  //                                                                             isBuying,
+  //                                                                             amountOfBYN,
+  //                                                                             amountOfCurrency,
+  // ChangeCurrencyFieldAC,
+  // ChangeActionAC,
+  // changeCurrentCurrencyAC,
+  // }
+) => {
+
+  const dispatch = useDispatch();
+
+  // const currencies = useSelector(selectCurrencies);
+  // const currentCurrency = useSelector(selectCurrentCurrency);
+  // const isBuying = useSelector(selectIsBuying);
+  // const amountOfBYN = useSelector(selectAmountOfBYN);
+  // const amountOfCurrency = useSelector(selectAmountOfCurrency);
+
+
+  // const { currencies, currentCurrency, isBuying, amountOfBYN, amountOfCurrency } = useSelector(selectCurrency);
+
+
+  const { currencies, currentCurrency, isBuying, amountOfBYN, amountOfCurrency } = useSelector<IGlobalState, CurrencyState>(state => state.currency);
+
+
   let currencyRate: number = 0;
   const currenciesName = currencies.map((currency) => {
     if (currency.currencyName === currentCurrency) {
@@ -44,25 +63,25 @@ export const CurrencyEContainer: React.FunctionComponent<ICurrencyProps> = ({
       const trigger: string = e.currentTarget.dataset.currency;
       if (trigger === 'byn') {
         if (value === '') {
-          ChangeCurrencyFieldAC(value, value);
+          dispatch(ChangeCurrencyFieldAC(value, value));
         } else {
-          ChangeCurrencyFieldAC(value, (+Number(value).toFixed(2) / currencyRate).toFixed(2));
+          dispatch(ChangeCurrencyFieldAC(value, (+Number(value).toFixed(2) / currencyRate).toFixed(2)));
         }
       } else {
         if (value === '') {
-          ChangeCurrencyFieldAC(value, value);
+          dispatch(ChangeCurrencyFieldAC(value, value));
         } else {
-          ChangeCurrencyFieldAC((+Number(value).toFixed(2) * currencyRate).toFixed(2), value);
+          dispatch(ChangeCurrencyFieldAC((+Number(value).toFixed(2) * currencyRate).toFixed(2), value));
         }
       }
     }
   };
   const changeAction = (e: React.MouseEvent<HTMLSpanElement>) => {
-    e.currentTarget.dataset.action === 'buy' ? ChangeActionAC(true) : ChangeActionAC(false);
+    e.currentTarget.dataset.action === 'buy' ? dispatch(ChangeActionAC(true)) : dispatch(ChangeActionAC(false));
   };
 
   const changeCurrentCurrency = (e: React.MouseEvent<HTMLLIElement>) => {
-    e.currentTarget.dataset.currency && changeCurrentCurrencyAC(e.currentTarget.dataset.currency);
+    e.currentTarget.dataset.currency && dispatch(changeCurrentCurrencyAC(e.currentTarget.dataset.currency));
   };
 
   return (
@@ -81,15 +100,19 @@ export const CurrencyEContainer: React.FunctionComponent<ICurrencyProps> = ({
     </React.Fragment>
   );
 };
-const mapStateToProps = (state: IGlobalState) => {
-  return {
-    currencies: state.currency.currencies,
-    currentCurrency: state.currency.currentCurrency,
-    isBuying: state.currency.isBuying,
-    amountOfBYN: state.currency.amountOfBYN,
-    amountOfCurrency: state.currency.amountOfCurrency,
-  };
-};
+
+
+// const mapStateToProps = (state: IGlobalState) => {
+//   return {
+//     currencies: state.currency.currencies,
+//     currentCurrency: state.currency.currentCurrency,
+//     isBuying: state.currency.isBuying,
+//     amountOfBYN: state.currency.amountOfBYN,
+//     amountOfCurrency: state.currency.amountOfCurrency,
+//   };
+// };
+
+
 // @ts-ignore
 // const mapDispatchToProps = (dispatch: Dispatch<CurrencyReducersTypes>) => {
 //   return {
@@ -106,7 +129,7 @@ const mapStateToProps = (state: IGlobalState) => {
 // };
 
 
-export const CurrencyExchangeContainer = compose(connect(mapStateToProps,
-  { ChangeCurrencyFieldAC, ChangeActionAC, changeCurrentCurrencyAC},
-))
-(CurrencyEContainer);
+// export const CurrencyExchangeContainer = connect(mapStateToProps,
+//   { ChangeCurrencyFieldAC, ChangeActionAC, changeCurrentCurrencyAC},
+// )
+// (CurrencyEContainer);

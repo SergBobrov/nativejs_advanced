@@ -13,7 +13,7 @@ export type CurrencyState = {
   amountOfCurrency: string;
 };
 
-const initialState: CurrencyState = {
+export const initialState: CurrencyState = {
   currencies: [
     {
       currencyName: 'USD',

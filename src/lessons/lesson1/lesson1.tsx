@@ -1,5 +1,7 @@
 import React from 'react';
-import { CurrencyExchangeContainer } from '../../containers/CurrencyExchangeContainer/CurrencyExchangeContainer';
+import {
+  CurrencyEContainer,
+} from '../../containers/CurrencyExchangeContainer/CurrencyExchangeContainer';
 
 // Redux
 // https://tproger.ru/translations/redux-for-beginners/
@@ -21,8 +23,8 @@ import { CurrencyExchangeContainer } from '../../containers/CurrencyExchangeCont
 
 const Lesson1: React.FunctionComponent = () => {
   return (
-        <React.Fragment>
-      <CurrencyExchangeContainer />
+    <React.Fragment>
+      <CurrencyEContainer />
     </React.Fragment>
   );
 };
