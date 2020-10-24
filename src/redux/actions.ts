@@ -5,7 +5,6 @@ export enum ACTIONS_TYPE {
 }
 
 export type ChangeCurrencyFieldType = {
-
 };
 // @ts-ignore
 export const ChangeCurrencyFieldAC = (amountOfBYN: string, amountOfCurrency: string): ChangeCurrencyFieldType => {

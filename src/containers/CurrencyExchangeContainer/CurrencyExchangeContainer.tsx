@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import CurrencyExchange from '../../components/CurrencyExchange/CurrencyExchange';
 import { IGlobalState } from '../../redux/state';
 import { CurrencyState } from '../../redux/currencyReducer';
 import { compose, Dispatch } from 'redux';
@@ -11,22 +10,26 @@ import {
   CurrencyReducersTypes,
 } from '../../redux/actions';
 
+
+import CurrencyExchange from '../../components/CurrencyExchange/CurrencyExchange';
+
 interface ICurrencyProps extends CurrencyState {
   setCurrencyAmount: (amountOfBYN: string, amountOfCurrency: string) => void;
   setAction: (isBuying: boolean) => void;
   changeCurrency: (currency: string) => void;
 }
 
-const CurrencyEContainer: React.FunctionComponent<ICurrencyProps> = ({
-  currencies,
-  currentCurrency,
-  isBuying,
-  amountOfBYN,
-  amountOfCurrency,
-  setCurrencyAmount,
-  setAction,
-  changeCurrency,
-}) => {
+
+export const CurrencyEContainer: React.FunctionComponent<ICurrencyProps> = ({
+                                                                              currencies,
+                                                                              currentCurrency,
+                                                                              isBuying,
+                                                                              amountOfBYN,
+                                                                              amountOfCurrency,
+                                                                              setCurrencyAmount,
+                                                                              setAction,
+                                                                              changeCurrency,
+                                                                            }) => {
   let currencyRate: number = 0;
   const currenciesName = currencies.map((currency) => {
     if (currency.currencyName === currentCurrency) {
@@ -79,7 +82,6 @@ const CurrencyEContainer: React.FunctionComponent<ICurrencyProps> = ({
     </React.Fragment>
   );
 };
-
 const mapStateToProps = (state: IGlobalState) => {
   return {
     currencies: state.currency.currencies,
@@ -103,5 +105,7 @@ const mapDispatchToProps = (dispatch: Dispatch<CurrencyReducersTypes>) => {
     },
   };
 };
+
+
 // @ts-ignore
 export const CurrencyExchangeContainer = compose(connect(mapStateToProps, mapDispatchToProps))(CurrencyEContainer);

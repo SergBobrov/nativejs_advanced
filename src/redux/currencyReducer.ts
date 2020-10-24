@@ -37,6 +37,8 @@ const initialState: CurrencyState = {
   amountOfCurrency: '',
 };
 
+//динамическая диспетчерезация
+
 export const currencyReducer = (state: CurrencyState = initialState, action: CurrencyReducersTypes): CurrencyState => {
   // @ts-ignore
   switch (action.type) {

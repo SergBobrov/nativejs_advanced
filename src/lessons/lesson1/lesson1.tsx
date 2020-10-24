@@ -21,7 +21,7 @@ import { CurrencyExchangeContainer } from '../../containers/CurrencyExchangeCont
 
 const Lesson1: React.FunctionComponent = () => {
   return (
-    <React.Fragment>
+        <React.Fragment>
       <CurrencyExchangeContainer />
     </React.Fragment>
   );
