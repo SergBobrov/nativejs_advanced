@@ -17,8 +17,8 @@ const initialState: CurrencyState = {
   currencies: [
     {
       currencyName: 'USD',
-      buyRate: 2.62,
-      sellRate: 2.58,
+      buyRate: 2.52,
+      sellRate: 2.56,
     },
     {
       currencyName: 'EUR',
@@ -40,8 +40,27 @@ const initialState: CurrencyState = {
 //динамическая диспетчерезация
 
 export const currencyReducer = (state: CurrencyState = initialState, action: CurrencyReducersTypes): CurrencyState => {
-  // @ts-ignore
   switch (action.type) {
+    case ACTIONS_TYPE.CHANGE_CURRENCY_FIELD_TYPE:
+      return {
+        ...state,
+        ...action.payload,
+      };
+    case ACTIONS_TYPE.CHANGE_CHANGE_ACTION:
+      return {
+        ...state,
+        ...action.payload,
+        amountOfBYN: '',
+        amountOfCurrency: '',
+      };
+    case ACTIONS_TYPE.CHANGE_CURRENT_CURRENCY:
+      return {
+        ...state,
+        ...action.payload,
+        amountOfBYN: '',
+        amountOfCurrency: '',
+
+      };
     default:
       return state;
   }
