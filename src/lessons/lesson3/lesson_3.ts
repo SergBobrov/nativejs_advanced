@@ -1,5 +1,3 @@
-console.log('lesson 3');
-
 // Event loop
 // https://learn.javascript.ru/event-loop
 // https://habr.com/ru/company/ruvds/blog/340508/
@@ -16,4 +14,4 @@ console.log('lesson 3');
 
 
 // just a plug
-export default ()=>{};
+export default 1
